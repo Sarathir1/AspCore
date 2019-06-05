@@ -2,16 +2,18 @@ variables:
   buildConfiguration: 'Release'
   
 steps:
-- script: dotnet restore
-  displayName: 'dotnet restore'
-
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    feedsToUse: 'select'
+    includeNuGetOrg: false
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'build'
-    projects: '/TestWebApp/TestWebApp.csproj'
+    projects: '**/*.csproj'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'publish artifacts'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
