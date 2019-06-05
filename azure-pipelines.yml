@@ -12,11 +12,13 @@ steps:
   inputs:
     command: 'build'
     projects: '**/*.csproj'
+    workingDirectory: '/'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
     publishWebProjects: false
+    workingDirectory: '/'
 
 - task: ArchiveFiles@2
   inputs:
